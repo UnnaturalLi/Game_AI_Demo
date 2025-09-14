@@ -1,0 +1,96 @@
+{
+  "$type": "StateMachine, Assembly-CSharp",
+  "StateNames": {
+    "$type": "System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib",
+    "$values": [
+      "PatrolState",
+      "RetreatToBaseState",
+      "RetreatFromEnemyState"
+    ]
+  },
+  "States": {
+    "$type": "System.Collections.Generic.List`1[[State, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "PatrolState, Assembly-CSharp",
+        "name": null,
+        "transitions": {
+          "$type": "System.Collections.Generic.List`1[[Transition, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "Transition, Assembly-CSharp",
+              "condition": {
+                "$type": "HpTooLowCondition, Assembly-CSharp",
+                "percentage": 0.5
+              },
+              "targetState": "RetreatToBaseState"
+            },
+            {
+              "$type": "Transition, Assembly-CSharp",
+              "condition": {
+                "$type": "DistanceTooCloseCondition, Assembly-CSharp",
+                "distance": 5.0
+              },
+              "targetState": "RetreatFromEnemyState"
+            }
+          ]
+        },
+        "StateDescription": "PatrolState"
+      },
+      {
+        "$type": "RetreatToBaseState, Assembly-CSharp",
+        "name": null,
+        "transitions": {
+          "$type": "System.Collections.Generic.List`1[[Transition, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "Transition, Assembly-CSharp",
+              "condition": {
+                "$type": "NotCondition, Assembly-CSharp",
+                "condition": {
+                  "$type": "HpTooLowCondition, Assembly-CSharp",
+                  "percentage": 0.5
+                }
+              },
+              "targetState": "PatrolState"
+            }
+          ]
+        },
+        "StateDescription": "RetreatToBaseState"
+      },
+      {
+        "$type": "RetreatFromEnemyState, Assembly-CSharp",
+        "name": null,
+        "transitions": {
+          "$type": "System.Collections.Generic.List`1[[Transition, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "Transition, Assembly-CSharp",
+              "condition": {
+                "$type": "AndCondition, Assembly-CSharp",
+                "a": {
+                  "$type": "NotCondition, Assembly-CSharp",
+                  "condition": {
+                    "$type": "DistanceTooCloseCondition, Assembly-CSharp",
+                    "distance": 5.0
+                  }
+                },
+                "b": {
+                  "$type": "NotCondition, Assembly-CSharp",
+                  "condition": {
+                    "$type": "HpTooLowCondition, Assembly-CSharp",
+                    "percentage": 0.5
+                  }
+                }
+              },
+              "targetState": "PatrolState"
+            }
+          ]
+        },
+        "StateDescription": "RetreatFromEnemyState"
+      }
+    ]
+  },
+  "DefaultStateName": "PatrolState",
+  "CurrentState": null
+}

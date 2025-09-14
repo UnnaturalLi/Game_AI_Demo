@@ -12,10 +12,10 @@ public class ConditionBasedAIAgent :AIAgent
     protected override void Start()
     {
         base.Start();
-        _aimCondition = new AimAtEnemyCondition(this);
-        _canSeeCondition = new CanSeeEnemyCondition(this);
-        _distanceTooCloseCondition=new DistanceTooCloseCondition(this);
-        _hpTooLowCondition=new HpTooLowCondition(this);
+        _aimCondition = new AimAtEnemyCondition();
+        _canSeeCondition = new CanSeeEnemyCondition();
+        _distanceTooCloseCondition=new DistanceTooCloseCondition();
+        _hpTooLowCondition=new HpTooLowCondition();
     }
 
     public void Stop()
@@ -24,12 +24,12 @@ public class ConditionBasedAIAgent :AIAgent
     }
     private void Update()
     {
-        if (_hpTooLowCondition.GetCondition())
+        if (_hpTooLowCondition.GetCondition(this))
         {
             BasePosition.y=transform.position.y;
             _tank.Move(BasePosition);
             _Description = "Moving back to base";
-        }else if (_distanceTooCloseCondition.GetCondition())
+        }else if (_distanceTooCloseCondition.GetCondition(this))
         {
             var dir = (transform.position -
                        (Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][GetEnemyID()]);
@@ -44,7 +44,7 @@ public class ConditionBasedAIAgent :AIAgent
             _Description = "Moving towards Enemy";
         }
         
-        if (_aimCondition.GetCondition())
+        if (_aimCondition.GetCondition(this))
         { 
             _tank.Shoot();
             Invoke("Stop",0.1f);

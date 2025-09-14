@@ -90,12 +90,13 @@ public class BattleManager : MonoBehaviour
             return;
         }
         blackboard = GetComponent<BattleBlackboard>();
+        
         nextPlayerID = 0;
         _PlayerGOs.Add(nextPlayerID,
             Instantiate(TankPrefab, SpawnPoints[nextPlayerID].position, SpawnPoints[nextPlayerID].rotation));
-        _PlayerGOs[nextPlayerID].AddComponent ( Type.GetType(Player0Agent));
         _PlayerGOs[nextPlayerID].GetComponent<Tank>().PlayerID = nextPlayerID;
         _PlayerPoints.Add(nextPlayerID, 0);
+        _PlayerGOs[nextPlayerID].AddComponent ( Type.GetType(Player0Agent));
         AIAgent aiagent = null;
         _PlayerGOs[nextPlayerID].TryGetComponent<AIAgent>(out aiagent);
         if (aiagent != null)
@@ -106,16 +107,21 @@ public class BattleManager : MonoBehaviour
         nextPlayerID++;
         _PlayerGOs.Add(nextPlayerID,
             Instantiate(TankPrefab, SpawnPoints[nextPlayerID].position, SpawnPoints[nextPlayerID].rotation));
-        _PlayerGOs[nextPlayerID].AddComponent ( Type.GetType(Player1Agent));
+        
         _PlayerGOs[nextPlayerID].GetComponent<Tank>().PlayerID = nextPlayerID;
         _PlayerPoints.Add(nextPlayerID, 0);
         _PlayerGOs[nextPlayerID].TryGetComponent<AIAgent>(out aiagent);
+        _PlayerGOs[nextPlayerID].AddComponent ( Type.GetType(Player1Agent));
         if (aiagent != null)
         {
             aiagent.BasePosition=Bases[nextPlayerID].position;
         }
         PointsText[0].text=$"Player 0: 0 pts";
         PointsText[1].text=$"Player 1: 0 pts";
+        UpdateBlackboard();
+        _PlayerGOs[0].GetComponent<TankAgent>().StartAgent();
+        _PlayerGOs[1].GetComponent<TankAgent>().StartAgent();
+        
     }
 
 

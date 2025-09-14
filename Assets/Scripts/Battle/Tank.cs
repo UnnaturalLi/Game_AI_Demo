@@ -49,6 +49,10 @@ public class Tank : MonoBehaviour
 
     public void Move(Vector3 destination)
     {
+        if (_Agent == null)
+        {
+            _Agent = GetComponent<NavMeshAgent>();
+        }
         destination.x = Mathf.Clamp(destination.x,-5, 5);
         destination.z = Mathf.Clamp(destination.z, -5, 5);
         _Agent.SetDestination(destination);

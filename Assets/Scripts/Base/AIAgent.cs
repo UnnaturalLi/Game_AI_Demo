@@ -6,27 +6,38 @@ public abstract class AIAgent : TankAgent
 {
     public Vector3 BasePosition;
     protected Tank _tank;
+
+    public Tank GetTank()
+    {
+        if (_tank == null)
+        {
+            _tank = GetComponent<Tank>();
+        }
+        return _tank;
+    }
     public int GetEnemyID()
     {
         int id = -1;
         foreach (var VARIABLE in BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition])
         {
-            if (VARIABLE.Key != _tank.PlayerID)
+            if (VARIABLE.Key != GetTank().PlayerID)
             {
                 id= VARIABLE.Key;
                 break;
             }
         }
-
         return id;
     }
+
+    
+
     public bool CanSeeEnemy()
     {
         var dic = BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition];
         int enemyID=-1;
         foreach (var pair in dic)
         {
-            if (pair.Key == _tank.PlayerID)
+            if (pair.Key == GetTank().PlayerID)
             {
                 continue;
             }
@@ -53,7 +64,7 @@ public abstract class AIAgent : TankAgent
         int enemyID = -1;
         foreach (var pair in dic)
         {
-            if (pair.Key == _tank.PlayerID)
+            if (pair.Key == GetTank().PlayerID)
             {
                 continue;
             }
@@ -75,8 +86,13 @@ public abstract class AIAgent : TankAgent
         }
         return false;
     }
-
+    
     protected virtual void Start()
+    {
+        
+    }
+
+    private void Awake()
     {
         _tank = GetComponent<Tank>();
     }

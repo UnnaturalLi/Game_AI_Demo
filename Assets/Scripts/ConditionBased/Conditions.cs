@@ -1,102 +1,72 @@
 using System;
 using UnityEngine;
-
+[Serializable]
 public class TrueCondition : Condition
 {
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
         return true;
     }
 }
-
+[Serializable]
 public class FalseCondition : Condition
 {
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
         return false;
     }
 }
-
+[Serializable]
 public class AndCondition : Condition
 {
-    private Condition a;
-    private Condition b;
-    public AndCondition(Condition a, Condition b)
+    public Condition a;
+    public Condition b;
+    public override bool GetCondition(AIAgent agent)
     {
-        this.a = a;
-        this.b = b;
-    }
-    public override bool GetCondition()
-    {
-        return a.GetCondition() && b.GetCondition();
+        return a.GetCondition( agent) && b.GetCondition( agent);
     }
 }
-
+[Serializable]
 public class OrCondition : Condition
 {
-    private Condition a;
-    private Condition b;
-    public OrCondition(Condition a, Condition b)
+    public Condition a;
+    public Condition b;
+    public override bool GetCondition(AIAgent agent)
     {
-        this.a = a;
-        this.b = b;
-    }
-    public override bool GetCondition()
-    {
-        return a.GetCondition() || b.GetCondition();
+        return a.GetCondition( agent) || b.GetCondition( agent);
     }
 }
-
+[Serializable]
 public class XorCondition : Condition
 {
-    private Condition a;
-    private Condition b;
-    public XorCondition(Condition a, Condition b)
+    public Condition a;
+    public Condition b;
+    public override bool GetCondition(AIAgent agent)
     {
-        this.a = a;
-        this.b = b;
-    }
-    public override bool GetCondition()
-    {
-        return a.GetCondition() ^ b.GetCondition();
+        return a.GetCondition( agent) ^ b.GetCondition( agent);
     }
 }
-
+[Serializable]
 public class NotCondition : Condition
 {
-    private Condition condition;
-    public NotCondition(Condition condition)
+    public Condition condition;
+    public override bool GetCondition(AIAgent agent)
     {
-        this.condition = condition;
-    }
-    public override bool GetCondition()
-    {
-        return !condition.GetCondition();
+        return !condition.GetCondition( agent);
     }
 }
-
+[Serializable]
 public class CanSeeEnemyCondition : Condition
 {
-    AIAgent agent;
-    public CanSeeEnemyCondition(AIAgent agent)
-    {
-        this.agent = agent;
-    }
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
         return agent.CanSeeEnemy();
     }
 }
-
+[Serializable]
 public class AimAtEnemyCondition : Condition
 {
-    AIAgent agent;
-
-    public AimAtEnemyCondition(AIAgent agent)
-    {
-        this.agent = agent;
-    }
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
         return agent.AimAtEnemy();
     }
@@ -104,13 +74,8 @@ public class AimAtEnemyCondition : Condition
 [Serializable]
 public class DistanceTooCloseCondition : Condition
 {
-    AIAgent agent;
     public float distance;
-    public DistanceTooCloseCondition(AIAgent agent)
-    {
-        this.agent = agent;
-    }
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
         return Vector3.Distance((Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][agent.GetEnemyID()],agent.transform.position)<distance;
     }
@@ -118,15 +83,11 @@ public class DistanceTooCloseCondition : Condition
 [Serializable]
 public class HpTooLowCondition : Condition
 {
-    AIAgent agent;
     public float percentage;
-    public HpTooLowCondition(AIAgent agent)
-    {
-        this.agent = agent;
-    }
 
-    public override bool GetCondition()
+    public override bool GetCondition(AIAgent agent)
     {
-        return agent.GetComponent<Tank>()._CurrentHp < agent.GetComponent<Tank>().MaxHp*percentage ;
+        var tank = agent.GetComponent<Tank>();
+        return tank._CurrentHp < tank.MaxHp * percentage;
     }
 }
