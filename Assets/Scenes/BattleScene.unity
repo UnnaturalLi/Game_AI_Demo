@@ -352,8 +352,8 @@ MonoBehaviour:
   - {fileID: 759064557}
   - {fileID: 858740160}
   Bases:
-  - {fileID: 1618046346}
-  - {fileID: 1146992963}
+  - {fileID: 1443717483}
+  - {fileID: 1593304611}
 --- !u!114 &329899286
 MonoBehaviour:
   m_ObjectHideFlags: 0

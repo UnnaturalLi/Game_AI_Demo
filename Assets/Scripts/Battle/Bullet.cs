@@ -19,8 +19,10 @@ public class Bullet : PoolObjectBase
         if (other.tag == "Player"&& other.GetComponent<Tank>().PlayerID!=shooter)
         {
          other.GetComponent<Tank>().HpChange(-1);
+         PoolManager.Instance.ReturnGameObject("Bullet", gameObject);
         }else if (other.tag == "terrain")
-        {PoolManager.Instance.ReturnGameObject("Bullet", gameObject);
+        {
+            PoolManager.Instance.ReturnGameObject("Bullet", gameObject);
         }
         
     }

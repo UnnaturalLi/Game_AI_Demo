@@ -110,12 +110,13 @@ public class BattleManager : MonoBehaviour
         
         _PlayerGOs[nextPlayerID].GetComponent<Tank>().PlayerID = nextPlayerID;
         _PlayerPoints.Add(nextPlayerID, 0);
-        _PlayerGOs[nextPlayerID].TryGetComponent<AIAgent>(out aiagent);
         _PlayerGOs[nextPlayerID].AddComponent ( Type.GetType(Player1Agent));
+        _PlayerGOs[nextPlayerID].TryGetComponent<AIAgent>(out aiagent);
         if (aiagent != null)
         {
-            aiagent.BasePosition=Bases[nextPlayerID].position;
+            aiagent.BasePosition = Bases[nextPlayerID].position;
         }
+
         PointsText[0].text=$"Player 0: 0 pts";
         PointsText[1].text=$"Player 1: 0 pts";
         UpdateBlackboard();

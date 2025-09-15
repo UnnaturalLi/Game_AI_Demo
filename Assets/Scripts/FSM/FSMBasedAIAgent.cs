@@ -18,8 +18,8 @@ using Newtonsoft.Json;
             _FSM.StateNames.Add("RetreatFromEnemyState");
             _FSM.States.Add(new PatrolState());
             _FSM.States.Add(new RetreatToBaseState());
-            _FSM.States.Add(new RetreatFromEnemyState());
-
+            _FSM.States.Add(new RetreatFromEnemyState{retreatDistance =3f});
+            
             // Set up transitions for ChaseEnemyState (index 0)
             _FSM.States[0].transitions = new List<Transition>();
             
@@ -32,7 +32,7 @@ using Newtonsoft.Json;
             _FSM.States[0].transitions.Add(t0);
             // If enemy too close -> RetreatFromEnemyState
             var distTooClose = new DistanceTooCloseCondition();
-            distTooClose.distance = 5;
+            distTooClose.distance = 2;
             var t1 = new Transition();
             t1.targetState = "RetreatFromEnemyState";
             t1.condition = distTooClose;
@@ -54,21 +54,15 @@ using Newtonsoft.Json;
             // If not too close and not low HP -> ChaseEnemyState
             var notTooClose = new NotCondition();
             notTooClose.condition = distTooClose;
-            var notHpLow = new NotCondition();
-            notHpLow.condition = hpLow;
-            var bothOk = new AndCondition();
-            bothOk.a = notTooClose;
-            bothOk.b = notHpLow;
             var t3 = new Transition();
             t3.targetState = "PatrolState";
-            t3.condition = bothOk;
+            t3.condition = notTooClose;
             _FSM.States[2].transitions.Add(t3);
             _FSM.DefaultStateName = "PatrolState";
             
             _FSM.States[0].StateDescription = "PatrolState";
             _FSM.States[1].StateDescription = "RetreatToBaseState";
-            _FSM.States[2].StateDescription = "RetreatFromEnemyState";
-            */
+            _FSM.States[2].StateDescription = "RetreatFromEnemyState";*/
             
             var settings = new JsonSerializerSettings
             {
@@ -82,7 +76,8 @@ using Newtonsoft.Json;
             
             
 
-            /*string json = JsonConvert.SerializeObject(_FSM, settings);
+            /*
+            string json = JsonConvert.SerializeObject(_FSM, settings);
             File.WriteAllText("/Users/lixiang/Desktop/FSMDemo.txt", json);
             using (var fs=File.Create("/Users/lixiang/Desktop/FSMDemo.txt"))
             {
@@ -90,6 +85,7 @@ using Newtonsoft.Json;
             }
             File.WriteAllText("/Users/lixiang/Desktop/FSMDemo.txt", json);
             */
+            
             
             TextAsset jsonText= Resources.Load<TextAsset>("FSMDemo");
             _FSM = JsonConvert.DeserializeObject<StateMachine>(jsonText.text,settings);

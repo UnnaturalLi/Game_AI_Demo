@@ -5,11 +5,11 @@ public class PatrolState : State
 {
     public override void OnEnter(AIAgent agent)
     {
-        agent.GetTank().Move((Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][agent.GetEnemyID()]);
     }
 
     public override State OnUpdate(AIAgent agent, StateMachine stateMachine)
     {
+        agent.GetTank().Move((Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][agent.GetEnemyID()]);
         if (agent.AimAtEnemy())
         {
             agent.GetTank().Shoot();
@@ -34,6 +34,7 @@ public class RetreatToBaseState : State
 
     public override State OnUpdate(AIAgent agent, StateMachine stateMachine)
     {
+        
         if (agent.AimAtEnemy())
         {
             agent.GetTank().Shoot();
@@ -49,17 +50,19 @@ public class RetreatToBaseState : State
 [Serializable]
 public class RetreatFromEnemyState : State
 {
+    public float retreatDistance;
     public override void OnEnter(AIAgent agent)
+    {
+        
+    }
+
+    public override State OnUpdate(AIAgent agent, StateMachine stateMachine)
     {
         Vector3 myPos = agent.transform.position;
         Vector3 enemyPos = (Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][agent.GetEnemyID()];
         Vector3 dir = myPos - enemyPos;
         dir.y = 0;
-        agent.GetTank().Move(myPos + dir.normalized * 5f); 
-    }
-
-    public override State OnUpdate(AIAgent agent, StateMachine stateMachine)
-    {
+        agent.GetTank().Move(myPos + dir.normalized * retreatDistance); 
         if (agent.AimAtEnemy())
         {
             agent.GetTank().Shoot();

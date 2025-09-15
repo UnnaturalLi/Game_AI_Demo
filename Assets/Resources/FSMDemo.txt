@@ -29,7 +29,7 @@
               "$type": "Transition, Assembly-CSharp",
               "condition": {
                 "$type": "DistanceTooCloseCondition, Assembly-CSharp",
-                "distance": 5.0
+                "distance": 2.0
               },
               "targetState": "RetreatFromEnemyState"
             }
@@ -60,6 +60,7 @@
       },
       {
         "$type": "RetreatFromEnemyState, Assembly-CSharp",
+        "retreatDistance": 3.0,
         "name": null,
         "transitions": {
           "$type": "System.Collections.Generic.List`1[[Transition, Assembly-CSharp]], mscorlib",
@@ -67,20 +68,10 @@
             {
               "$type": "Transition, Assembly-CSharp",
               "condition": {
-                "$type": "AndCondition, Assembly-CSharp",
-                "a": {
-                  "$type": "NotCondition, Assembly-CSharp",
-                  "condition": {
-                    "$type": "DistanceTooCloseCondition, Assembly-CSharp",
-                    "distance": 5.0
-                  }
-                },
-                "b": {
-                  "$type": "NotCondition, Assembly-CSharp",
-                  "condition": {
-                    "$type": "HpTooLowCondition, Assembly-CSharp",
-                    "percentage": 0.5
-                  }
+                "$type": "NotCondition, Assembly-CSharp",
+                "condition": {
+                  "$type": "DistanceTooCloseCondition, Assembly-CSharp",
+                  "distance": 2.0
                 }
               },
               "targetState": "PatrolState"

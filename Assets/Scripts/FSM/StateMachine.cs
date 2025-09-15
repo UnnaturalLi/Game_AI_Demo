@@ -23,7 +23,6 @@
         public State GetState(string StateName)
         {
             State state = null;
-            Debug.Log(StateName);
             _StatesDic.TryGetValue(StateName, out state);
             return state;
         }
