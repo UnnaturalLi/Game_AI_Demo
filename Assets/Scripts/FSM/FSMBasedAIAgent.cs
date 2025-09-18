@@ -9,14 +9,22 @@ using Newtonsoft.Json;
         private StateMachine _FSM;
         public void LoadFSM()
         {
-            /*_FSM = new StateMachine();
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                Formatting = Formatting.Indented
+            };
+            
+            
+            /*
+            _FSM = new StateMachine();
             _FSM.StateNames = new List<string>();
             _FSM.States = new List<State>();
             
-            _FSM.StateNames.Add("PatrolState");
+            _FSM.StateNames.Add("MoveToEnemyState");
             _FSM.StateNames.Add("RetreatToBaseState");
             _FSM.StateNames.Add("RetreatFromEnemyState");
-            _FSM.States.Add(new PatrolState());
+            _FSM.States.Add(new MoveToEnemyState());
             _FSM.States.Add(new RetreatToBaseState());
             _FSM.States.Add(new RetreatFromEnemyState{retreatDistance =3f});
             
@@ -45,7 +53,7 @@ using Newtonsoft.Json;
             var hpOk = new NotCondition();
             hpOk.condition = hpLow;
             var t2 = new Transition();
-            t2.targetState = "PatrolState";
+            t2.targetState = "MoveToEnemyState";
             t2.condition = hpOk;
             _FSM.States[1].transitions.Add(t2);
 
@@ -55,38 +63,25 @@ using Newtonsoft.Json;
             var notTooClose = new NotCondition();
             notTooClose.condition = distTooClose;
             var t3 = new Transition();
-            t3.targetState = "PatrolState";
+            t3.targetState = "MoveToEnemyState";
             t3.condition = notTooClose;
             _FSM.States[2].transitions.Add(t3);
-            _FSM.DefaultStateName = "PatrolState";
+            _FSM.DefaultStateName = "MoveToEnemyState";
             
-            _FSM.States[0].StateDescription = "PatrolState";
+            _FSM.States[0].StateDescription = "MoveToEnemyState";
             _FSM.States[1].StateDescription = "RetreatToBaseState";
-            _FSM.States[2].StateDescription = "RetreatFromEnemyState";*/
+            _FSM.States[2].StateDescription = "RetreatFromEnemyState";
             
-            var settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.Indented
-            };
+           
             
             
-            /*
-            _FSM=JsonUtility.FromJson<StateMachine>(jsonText.text);*/
-            
-            
-
-            /*
             string json = JsonConvert.SerializeObject(_FSM, settings);
             File.WriteAllText("/Users/lixiang/Desktop/FSMDemo.txt", json);
             using (var fs=File.Create("/Users/lixiang/Desktop/FSMDemo.txt"))
             {
                 
             }
-            File.WriteAllText("/Users/lixiang/Desktop/FSMDemo.txt", json);
-            */
-            
-            
+            File.WriteAllText("/Users/lixiang/Desktop/FSMDemo.txt", json);*/
             TextAsset jsonText= Resources.Load<TextAsset>("FSMDemo");
             _FSM = JsonConvert.DeserializeObject<StateMachine>(jsonText.text,settings);
             _FSM.Init(this);

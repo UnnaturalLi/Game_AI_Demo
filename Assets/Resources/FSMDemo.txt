@@ -3,7 +3,7 @@
   "StateNames": {
     "$type": "System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib",
     "$values": [
-      "PatrolState",
+      "MoveToEnemyState",
       "RetreatToBaseState",
       "RetreatFromEnemyState"
     ]
@@ -12,7 +12,7 @@
     "$type": "System.Collections.Generic.List`1[[State, Assembly-CSharp]], mscorlib",
     "$values": [
       {
-        "$type": "PatrolState, Assembly-CSharp",
+        "$type": "MoveToEnemyState, Assembly-CSharp",
         "name": null,
         "transitions": {
           "$type": "System.Collections.Generic.List`1[[Transition, Assembly-CSharp]], mscorlib",
@@ -35,7 +35,7 @@
             }
           ]
         },
-        "StateDescription": "PatrolState"
+        "StateDescription": "MoveToEnemyState"
       },
       {
         "$type": "RetreatToBaseState, Assembly-CSharp",
@@ -52,7 +52,7 @@
                   "percentage": 0.5
                 }
               },
-              "targetState": "PatrolState"
+              "targetState": "MoveToEnemyState"
             }
           ]
         },
@@ -74,7 +74,7 @@
                   "distance": 2.0
                 }
               },
-              "targetState": "PatrolState"
+              "targetState": "MoveToEnemyState"
             }
           ]
         },
@@ -82,6 +82,6 @@
       }
     ]
   },
-  "DefaultStateName": "PatrolState",
+  "DefaultStateName": "MoveToEnemyState",
   "CurrentState": null
 }

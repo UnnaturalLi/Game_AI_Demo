@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 [Serializable]
-public class PatrolState : State
+public class MoveToEnemyState : State
 {
     public override void OnEnter(AIAgent agent)
     {
