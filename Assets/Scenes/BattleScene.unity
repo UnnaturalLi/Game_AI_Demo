@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TankPrefab: {fileID: 2501956057152412209, guid: c7d75577e5f264ed0be42904bf4a5654, type: 3}
-  Player0Agent: ConditionBasedAIAgent
+  Player0Agent: BTBasedAIAgent
   Player1Agent: FSMBasedAIAgent
   blackboard: {fileID: 0}
   SpawnPoints:

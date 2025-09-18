@@ -1,0 +1,168 @@
+{
+  "$id": "1",
+  "$type": "ParallelNode, Assembly-CSharp",
+  "condition": {
+    "$id": "2",
+    "$type": "TrueCondition, Assembly-CSharp"
+  },
+  "children": {
+    "$id": "3",
+    "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$id": "4",
+        "$type": "RepeatNode, Assembly-CSharp",
+        "RepeatTimes": -1,
+        "condition": {
+          "$id": "5",
+          "$type": "TrueCondition, Assembly-CSharp"
+        },
+        "children": {
+          "$id": "6",
+          "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$id": "7",
+              "$type": "SelectNode, Assembly-CSharp",
+              "condition": {
+                "$id": "8",
+                "$type": "TrueCondition, Assembly-CSharp"
+              },
+              "children": {
+                "$id": "9",
+                "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                "$values": [
+                  {
+                    "$id": "10",
+                    "$type": "BackToBaseActionNode, Assembly-CSharp",
+                    "condition": {
+                      "$id": "11",
+                      "$type": "HpTooLowCondition, Assembly-CSharp",
+                      "percentage": 0.5
+                    },
+                    "children": {
+                      "$id": "12",
+                      "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                      "$values": []
+                    },
+                    "Parent": {
+                      "$ref": "7"
+                    },
+                    "Description": "Retreat to Base"
+                  },
+                  {
+                    "$id": "13",
+                    "$type": "MoveToEnemyActionNode, Assembly-CSharp",
+                    "condition": {
+                      "$id": "14",
+                      "$type": "NotCondition, Assembly-CSharp",
+                      "condition": {
+                        "$id": "15",
+                        "$type": "HpTooLowCondition, Assembly-CSharp",
+                        "percentage": 0.5
+                      }
+                    },
+                    "children": {
+                      "$id": "16",
+                      "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                      "$values": []
+                    },
+                    "Parent": {
+                      "$ref": "7"
+                    },
+                    "Description": "Moving Towards Enemy"
+                  }
+                ]
+              },
+              "Parent": {
+                "$ref": "4"
+              },
+              "Description": null
+            }
+          ]
+        },
+        "Parent": {
+          "$ref": "1"
+        },
+        "Description": null
+      },
+      {
+        "$id": "17",
+        "$type": "RepeatNode, Assembly-CSharp",
+        "RepeatTimes": -1,
+        "condition": {
+          "$id": "18",
+          "$type": "TrueCondition, Assembly-CSharp"
+        },
+        "children": {
+          "$id": "19",
+          "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$id": "20",
+              "$type": "SelectNode, Assembly-CSharp",
+              "condition": {
+                "$id": "21",
+                "$type": "TrueCondition, Assembly-CSharp"
+              },
+              "children": {
+                "$id": "22",
+                "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                "$values": [
+                  {
+                    "$id": "23",
+                    "$type": "RotateToEnemyActionNode, Assembly-CSharp",
+                    "condition": {
+                      "$id": "24",
+                      "$type": "NotCondition, Assembly-CSharp",
+                      "condition": {
+                        "$id": "25",
+                        "$type": "AimAtEnemyCondition, Assembly-CSharp"
+                      }
+                    },
+                    "children": {
+                      "$id": "26",
+                      "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                      "$values": []
+                    },
+                    "Parent": {
+                      "$ref": "20"
+                    },
+                    "Description": "Rotate to Enemy"
+                  },
+                  {
+                    "$id": "27",
+                    "$type": "ShootActionNode, Assembly-CSharp",
+                    "condition": {
+                      "$id": "28",
+                      "$type": "AimAtEnemyCondition, Assembly-CSharp"
+                    },
+                    "children": {
+                      "$id": "29",
+                      "$type": "System.Collections.Generic.List`1[[Node, Assembly-CSharp]], mscorlib",
+                      "$values": []
+                    },
+                    "Parent": {
+                      "$ref": "20"
+                    },
+                    "Description": "Shooting"
+                  }
+                ]
+              },
+              "Parent": {
+                "$ref": "17"
+              },
+              "Description": null
+            }
+          ]
+        },
+        "Parent": {
+          "$ref": "1"
+        },
+        "Description": null
+      }
+    ]
+  },
+  "Parent": null,
+  "Description": null
+}

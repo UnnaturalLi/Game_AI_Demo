@@ -88,6 +88,7 @@ public class HpTooLowCondition : Condition
     public override bool GetCondition(AIAgent agent)
     {
         var tank = agent.GetComponent<Tank>();
+        Debug.Log(tank._CurrentHp < tank.MaxHp * percentage);
         return tank._CurrentHp < tank.MaxHp * percentage;
     }
 }
