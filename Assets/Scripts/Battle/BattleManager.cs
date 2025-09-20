@@ -5,12 +5,22 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+public enum AgentType
+{
+    Manual,
+    ConditionBased,
+    FSM,
+    BT,
+    Utility
+}
 [RequireComponent(typeof(BattleBlackboard))]
 public class BattleManager : MonoBehaviour
 {
-    public GameObject TankPrefab; 
-    public string Player0Agent; 
-    public string Player1Agent;
+    public GameObject TankPrefab;
+    public AgentType Player0;
+    public AgentType Player1;
+    private string Player0Agent; 
+    private string Player1Agent;
     public BattleBlackboard blackboard;
     public List<Transform> SpawnPoints;
     public int nextPlayerID;
@@ -81,6 +91,33 @@ public class BattleManager : MonoBehaviour
     {
         _PlayerGOs = new Dictionary<int, GameObject>();
         _PlayerPoints = new Dictionary<int, int>();
+        switch (Player0)
+        {
+            case AgentType.Manual:
+                Player0Agent = "PlayerControl"; break;
+            case AgentType.ConditionBased:
+                Player0Agent = "ConditionBasedAIAgent"; break;
+            case AgentType.BT:
+                Player0Agent = "BTBasedAIAgent"; break;
+            case AgentType.FSM:
+                Player0Agent = "FSMBasedAIAgent"; break;
+            case AgentType.Utility:
+                Player0Agent = "UtilityBasedAIAgent"; break;
+        }
+
+        switch (Player1)
+        {
+            case AgentType.Manual:
+                Player1Agent = "PlayerControl"; break;
+            case AgentType.ConditionBased:
+                Player1Agent = "ConditionBasedAIAgent"; break;
+            case AgentType.BT:
+                Player1Agent = "BTBasedAIAgent"; break;
+            case AgentType.FSM:
+                Player1Agent = "FSMBasedAIAgent"; break;
+            case AgentType.Utility:
+                Player1Agent = "UtilityBasedAIAgent"; break;
+        }
     }
     private void Start()
     {
