@@ -29,7 +29,17 @@ public abstract class AIAgent : TankAgent
         return id;
     }
 
-    
+    public void Attack()
+    {
+        if (AimAtEnemy())
+        {
+            _tank.Shoot();
+        }
+        else
+        {
+            _tank.RotateBarrel((Vector3)BattleBlackboard.Instance.Information[EBlackboardInformationType.playerPosition][GetEnemyID()]);
+        }
+    }
 
     public bool CanSeeEnemy()
     {
@@ -92,7 +102,7 @@ public abstract class AIAgent : TankAgent
         
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _tank = GetComponent<Tank>();
     }

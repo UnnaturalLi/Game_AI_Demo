@@ -11,7 +11,9 @@ public enum AgentType
     ConditionBased,
     FSM,
     BT,
-    Utility
+    Utility,
+    GOAP
+
 }
 [RequireComponent(typeof(BattleBlackboard))]
 public class BattleManager : MonoBehaviour
@@ -45,8 +47,8 @@ public class BattleManager : MonoBehaviour
     
     public void UpdateBlackboard()
     {
-        blackboard.Information[EBlackboardInformationType.playerHp][0] = _PlayerGOs[0].GetComponent<Tank>()._CurrentHp;
-        blackboard.Information[EBlackboardInformationType.playerHp][1] = _PlayerGOs[1].GetComponent<Tank>()._CurrentHp;
+        blackboard.Information[EBlackboardInformationType.playerHp][0] = _PlayerGOs[0].GetComponent<Tank>().CurrentHp;
+        blackboard.Information[EBlackboardInformationType.playerHp][1] = _PlayerGOs[1].GetComponent<Tank>().CurrentHp;
         
         blackboard.Information[EBlackboardInformationType.playerPosition][0]=_PlayerGOs[0].transform.position;
         blackboard.Information[EBlackboardInformationType.playerPosition][1]=_PlayerGOs[1].transform.position;
@@ -60,9 +62,10 @@ public class BattleManager : MonoBehaviour
         foreach (var go in _PlayerGOs)
         {
             var tank = go.Value.GetComponent<Tank>();
-            if (tank._CurrentHp <= 0)
+            if (tank.CurrentHp <= 0)
             {
                 tank.ReSpawn(SpawnPoints[go.Key].position);
+                tank.GetComponent<TankAgent>().ReSpawn();
                 for (int i = 0; i < _PlayerPoints.Count; i++)
                 {
                     if (i == go.Key)
@@ -103,6 +106,8 @@ public class BattleManager : MonoBehaviour
                 Player0Agent = "FSMBasedAIAgent"; break;
             case AgentType.Utility:
                 Player0Agent = "UtilityBasedAIAgent"; break;
+            case AgentType.GOAP:
+                Player0Agent = "GOAPBasedAIAgent"; break;
         }
 
         switch (Player1)
@@ -117,6 +122,8 @@ public class BattleManager : MonoBehaviour
                 Player1Agent = "FSMBasedAIAgent"; break;
             case AgentType.Utility:
                 Player1Agent = "UtilityBasedAIAgent"; break;
+            case AgentType.GOAP:
+                Player1Agent = "GOAPBasedAIAgent"; break;
         }
     }
     private void Start()

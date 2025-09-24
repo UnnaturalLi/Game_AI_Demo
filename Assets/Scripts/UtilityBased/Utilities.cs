@@ -18,7 +18,7 @@ public class UPUtility : Utility
 {
     protected override float OnCalculation(AIAgent agent)
     {
-        return agent.GetTank()._CurrentHp / agent.GetTank().MaxHp;
+        return agent.GetTank().CurrentHp / agent.GetTank().MaxHp;
     }
 }
 public class FarawayFromEnemyUtility : Utility

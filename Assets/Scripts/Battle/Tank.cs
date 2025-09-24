@@ -16,18 +16,20 @@ public class Tank : MonoBehaviour
     public float MaxRotateAngularSpeed;
     public float CoolTime;
     public float MaxHp; 
-    public float _CurrentHp;
+    public float CurrentHp;
     private Image _HpBar;
     public int PlayerID;
     public void HpChange(float hp)
     {
-        _CurrentHp += hp;
-        _CurrentHp = Mathf.Clamp(_CurrentHp, _CurrentHp, MaxHp);
+        CurrentHp += hp;
+        CurrentHp = Mathf.Clamp(CurrentHp, CurrentHp, MaxHp);
         if (_HpBar)
         {
-            _HpBar.fillAmount = _CurrentHp / MaxHp;
+            _HpBar.fillAmount = CurrentHp / MaxHp;
         }
     }
+
+    
     public bool CanShoot
     {
         get
@@ -40,11 +42,12 @@ public class Tank : MonoBehaviour
     {
         _Agent.SetDestination(pos);
         transform.position = pos;
-        _CurrentHp = MaxHp;
+        CurrentHp = MaxHp;
         if (_HpBar)
         {
-            _HpBar.fillAmount = _CurrentHp / MaxHp;
+            _HpBar.fillAmount = CurrentHp / MaxHp;
         }
+        
     }
 
     public void Move(Vector3 destination)
@@ -86,7 +89,7 @@ public class Tank : MonoBehaviour
 
     private void Awake()
     {
-        _CurrentHp = MaxHp;
+        CurrentHp = MaxHp;
     }
 
     private void Start()
